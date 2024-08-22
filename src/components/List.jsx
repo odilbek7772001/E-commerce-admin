@@ -5,7 +5,7 @@ import logo from "../assets/images/logo.jpg";
 
 export default function List() {
     return(
-        <div className="bg-sky-900 w-72 h-[100vh]">
+        <div className="bg-sky-900 w-[20%] h-[100vh] fixed">
             <div className="py-5 pl-10 border-b-2 border-solid border-sky-600">
                 <img className="rounded-lg " src={logo} width={140}  alt="logo"/>
             </div>

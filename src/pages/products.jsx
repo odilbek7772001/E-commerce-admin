@@ -22,7 +22,7 @@ export default function Products() {
     };
 
     return(
-        <section className="bg-sky-950 w-[100%]">
+        <section className="bg-sky-950 w-[85%] relative left-60">
             <div className="container">
                 <header className="flex justify-between border-b-2 border-sky-700 pb-[13px]">
                     <h1 className="text-white font-bold mt-4 ml-5 text-[20px] tracking-[2px]">Analytics</h1>
