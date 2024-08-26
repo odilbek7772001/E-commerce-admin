@@ -10,8 +10,9 @@ export default function List() {
                 <img className="rounded-lg " src={logo} width={140}  alt="logo"/>
             </div>
             <ul className="pt-10 pl-20 ">
-                <NavLink to={'/products'} className=" block text-white mb-4 text-[20px] tracking-[2px]"><a href="#">Products</a></NavLink>
-                <NavLink to={'/orders'} className="text-white text-[20px] tracking-[2px]"><a href="#">Orders</a></NavLink>
+                <NavLink to={'/products'} className=" block text-white mb-4 text-[20px] tracking-[2px] p-2 rounded-lg"><a href="#">Products</a></NavLink>
+                <NavLink to={'/orders'} className="block text-white mb-4 text-[20px] tracking-[2px] p-2 rounded-lg"><a href="#">Orders</a></NavLink>
+                <NavLink to={'/contact'} className="block text-white text-[20px] tracking-[2px] p-2 rounded-lg "><a href="#">Contacts</a></NavLink>
             </ul>
         </div>
     )
