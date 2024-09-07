@@ -8,7 +8,7 @@ import UnAuthorizedApp from './pages/UnAuthorizedApp';
 
 function App() {
     
-  if(false) {
+  if(true) {
     return  <AuthorizedApp/>
   }else {
     return  <UnAuthorizedApp/>

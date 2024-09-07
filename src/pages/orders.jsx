@@ -25,12 +25,13 @@ export default function Orders() {
         <section className="bg-sky-950 w-[85%] relative left-60">
             <div className="container">
                 <header className="flex justify-between border-b-2 border-sky-700 pb-[13px]">
-                    <h1 className="text-white font-bold mt-4 ml-5 text-[20px] tracking-[2px]">Analytics</h1>
+                    <h1 className="text-white font-bold mt-4 ml-5 text-[20px] tracking-[2px]">Admin</h1>
                     <div className="flex text-white mt-5 mr-5">
                         <img className="mr-4" src={user} width={25} height={25} alt="" />
                         <span className="font-bold">John Born</span>
                     </div>
                 </header>
+                <h1 className="text-white font-bold mt-4 ml-5 text-[20px] tracking-[2px]">Analytics</h1>
                 <div className="flex justify-between mt-5">
                     <div className="border-2 border-solid border-sky-800 p-5 text-white rounded-lg">
                         <h2 className="font-bold">All orders</h2>

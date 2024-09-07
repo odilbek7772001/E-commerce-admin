@@ -10,66 +10,22 @@ import edit from "../assets/images/edit.svg";
 import delet from "../assets/images/delete.svg";
 
 
-export default function Products() {
+export default function Payments() {
 
     const [modalIsOpen, setIsOpen] = useState(false);
     const [ products, setProducts ] = useState([])
 
 
-    // GET
-
-    // fetch(`https://savdo5jiek.onrender.com/api/v1/product/get-products`, {
-    //     method:"GET",
-    //     headers: {
-    //         "Content-Type":"application/json"
-    //     }
-    // })
-    // .then(res => res.json())
-    // .then(data => console.log(data))
+    fetch(`https://savdo5jiek.onrender.com/api/v1/product/get-products`, {
+        method:"GET",
+        headers: {
+            "Content-Type":"application/json"
+        }
+    })
+    .then(res => res.json())
+    .then(data => console.log(data))
 
 
-    // POST
-
-    // fetch(`https://reqres.in/api/login`, {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type":"application/json"
-        //     },
-        //     body: JSON.stringify({
-        //         username,
-        //         password
-        //     })
-        // })
-        // .then(res => res.json())
-        // .then(data => console.log(data))
-
-
-    // PUT
-
-    // fetch(`https://reqres.in/api/login/${id}`, {
-        //     method: "PUT",
-        //     headers: {
-        //         "Content-Type":"application/json"
-        //     },
-        //     body: JSON.stringify({
-        //         username,
-        //         password
-        //     })
-        // })
-        // .then(res => res.json())
-        // .then(data => console.log(data))
-
-
-    // DELETE
-
-    // fetch(`https://savdo5jiek.onrender.com/api/v1/product/get-products/${id}`, {
-    //     method:"DELETE",
-    //     headers: {
-    //         "Content-Type":"application/json"
-    //     }
-    // })
-    // .then(res => res.json())
-    // .then(data => console.log(data))
 
 
     // modal
@@ -83,7 +39,7 @@ export default function Products() {
 
 
     return(
-        <section className="bg-sky-950 w-[85%] relative left-60">
+        <section className="bg-sky-950 w-[85%] h-[150vh] relative left-60">
             <div className="container">
                 <header className="flex justify-between border-b-2 border-sky-700 pb-[13px]">
                     <h1 className="text-white font-bold mt-4 ml-5 text-[20px] tracking-[2px]">Admin</h1>
@@ -92,34 +48,15 @@ export default function Products() {
                         <Link to={'/admin'}><span className="font-bold">John Born</span></Link>
                     </div>
                 </header>
-                <h1 className="text-white font-bold mt-4 ml-5 text-[20px] tracking-[2px]">Analytics</h1>
-                <div className="flex justify-between mt-5">
-                    <div className="border-2 border-solid border-sky-800 p-5 text-white rounded-lg">
-                        <h2 className="font-bold">All products</h2>
-                        <span className="">50.8K</span>
-                    </div>
-                    <div className="border-2 border-solid border-sky-800 p-5 text-white rounded-lg">
-                        <h2 className="font-bold">Sale products</h2>
-                        <span className="">50.8K</span>
-                    </div>
-                    <div className="border-2 border-solid border-sky-800 p-5 text-white rounded-lg">
-                        <h2 className="font-bold">Stock products</h2>
-                        <span className="">50.8K</span>
-                    </div>
-                    <div className="border-2 border-solid border-sky-800 p-5 text-white rounded-lg">
-                        <h2 className="font-bold">Order products</h2>
-                        <span className="">50.8K</span>
-                    </div>
-                </div>
+               
                 <div className="border-2 mt-10 p-5 rounded-lg border-sky-800">
                     <div className="flex justify-between mt-5">
-                        <h3 className="text-white font-bold text-[25px] tracking-[2px]">Products</h3>
+                        <h3 className="text-white font-bold text-[25px] tracking-[2px]">Payments</h3>
                        <div className="flex">
                             <div className="mr-4 ">
                                 <img src="" alt="" />
                                 <input className="text-white rounded-lg bg-transparent border-2 border-solid border-sky-900 p-2" type="text" placeholder="search..." />
                             </div>
-                            <div className="mr-4"><input className="bg-sky-900 text-white p-2  rounded-lg  " type="date"  /></div>
                             <button onClick={openModal} className="bg-sky-900 text-white p-2 font-mono  rounded-lg">Create product</button>
                        </div>
                        {/* modal */}
@@ -157,27 +94,25 @@ export default function Products() {
                     <table className="mt-10 w-[1200px]">
                         <thead className="">
                             <tr className="">
-                                <td className="text-white font-bold">Image</td>
-                                <td className="text-white font-bold ">Name</td>
-                                <td className="text-white font-bold relative right-16 ">Weight</td>
+                                <td className="text-white font-bold">Name</td>
+                                <td className="text-white font-bold relative right-16">Weight</td>
                                 <td className="text-white font-bold relative left-8">Price</td>
                                 <td className="text-white font-bold relative left-8">Disocunt</td>
                                 <td className="text-white font-bold relative left-8">Modify</td>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody className="w-[1200px] h-[500px]">
                             {
                                 ConstructionProducts?.map(item => {
                                     return(
-                                        <tr >
-                                            <td className=""><img className="mt-4 rounded-lg" src={item.image} width={100} height={100} alt="image"/></td>
-                                            <td className="text-slate-300">{item.name}</td>
-                                            <td className="text-slate-300 relative right-16"><p>{item.massa}</p></td>
-                                            <td className="text-slate-300 relative left-8">{item.price}</td>
-                                            <td className="text-slate-300 relative left-8">{item.discount}</td>
-                                            <td className="text-slate-300 relative left-8">
+                                        <tr>
+                                            <td className="text-slate-300 mb-10 relative top-10">{item.name}</td>
+                                            <td className="text-slate-300 relative right-16 mb-10 top-10"><p>{item.massa}</p></td>
+                                            <td className="text-slate-300 relative left-8 mb-10 top-10">{item.price}</td>
+                                            <td className="text-slate-300 relative left-8 mb-10 top-10">{item.discount}</td>
+                                            <td className="text-slate-300 relative left-8 mb-10 top-10">
                                                 <button><img className="mr-5" src={edit} width={20} alt="" /></button>
-                                                <button><img className="" src={delet} width={20} alt="" /></button>  
+                                                <button><img className="" src={delet} width={25} alt="" /></button>  
                                             </td>
                                         </tr>
                                     )

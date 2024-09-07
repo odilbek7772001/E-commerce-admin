@@ -12,7 +12,10 @@ export default function List() {
             <ul className="pt-10 pl-20 ">
                 <NavLink to={'/products'} className=" block text-white mb-4 text-[20px] tracking-[2px] p-2 rounded-lg"><a href="#">Products</a></NavLink>
                 <NavLink to={'/orders'} className="block text-white mb-4 text-[20px] tracking-[2px] p-2 rounded-lg"><a href="#">Orders</a></NavLink>
-                <NavLink to={'/contact'} className="block text-white text-[20px] tracking-[2px] p-2 rounded-lg "><a href="#">Contacts</a></NavLink>
+                <NavLink to={'/contacts'} className="block text-white mb-4 text-[20px] tracking-[2px] p-2 rounded-lg "><a href="#">Contacts</a></NavLink>
+                <NavLink to={'/categories'} className="block text-white mb-4 text-[20px] tracking-[2px] p-2 rounded-lg "><a href="#">Categories</a></NavLink>
+                <NavLink to={'/payments'} className="block text-white mb-4 text-[20px] tracking-[2px] p-2 rounded-lg "><a href="#">Payments</a></NavLink>
+                <NavLink to={'/contracts'} className="block text-white text-[20px] tracking-[2px] p-2 rounded-lg "><a href="#">Contracts</a></NavLink>
             </ul>
         </div>
     )
