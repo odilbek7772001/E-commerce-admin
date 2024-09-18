@@ -18,7 +18,7 @@ function AuthorizedApp(){
       <Routes>
           <Route path="/" element={<Products/>} />
           <Route path="/admin" element={<Admin/>} />
-          <Route path="/products" element={<Products/>} />
+          {/* <Route path="/products" element={<Products/>} /> */}
           <Route path="/orders" element={<Orders/>} />
           <Route path="/contacts" element={<Contacts/>} />
           <Route path="/categories" element={<Categories/>} />

@@ -1,4 +1,5 @@
 import './App.css';
+import useAuth from './hook/useAuth';
 
 
 // pages
@@ -7,8 +8,10 @@ import UnAuthorizedApp from './pages/UnAuthorizedApp';
 
 
 function App() {
+
+  const [ user ] = useAuth();
     
-  if(true) {
+  if(user) {
     return  <AuthorizedApp/>
   }else {
     return  <UnAuthorizedApp/>

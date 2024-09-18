@@ -1,7 +1,8 @@
-import { useState , useEffect} from "react";
+import { useState , useEffect, useRef} from "react";
 import { Link } from "react-router-dom";
 import Modal from 'react-modal';
-import ConstructionProducts from "../database/data";
+import axios from 'axios';
+
 
 
 // images
@@ -13,20 +14,52 @@ import delet from "../assets/images/delete.svg";
 export default function Categories() {
 
     const [modalIsOpen, setIsOpen] = useState(false);
-    const [ products, setProducts ] = useState([])
-
-
-    fetch(`https://savdo5jiek.onrender.com/api/v1/product/get-products`, {
-        method:"GET",
-        headers: {
-            "Content-Type":"application/json"
-        }
-    })
-    .then(res => res.json())
-    .then(data => console.log(data))
+    const [ categories, setCategories ] = useState([])
+    const [ lang , seTlang ] = useState([]);
 
 
 
+   // get products
+    useEffect(() => {
+        axios.get('https://5jiek.uz/api/v1/categorie/get-categories' , {
+            withCredentials: true
+        })
+        .then(response => {
+            setCategories(response.data.categories); 
+            })
+        .catch(error => {
+            setError(error);
+        });
+    },[""]);
+
+
+    // 
+
+       // changeLang
+       const chaneLanguage = useRef();
+
+    //    const changeLang = (evt) => {
+    //        seTlang(evt)
+   
+    //        if(evt == "uz") {
+    //            nameRu.current.style.display = "none";
+    //            nameEn.current.style.display = "none";
+    //            nameUz.current.style.display = "block";
+
+   
+    //        } else if(evt == "en") {
+    //            nameRu.current.style.display = "none";
+    //            nameUz.current.style.display = "none";
+    //            nameEn.current.style.display = "block";
+
+   
+    //        } else if(evt == "ru") {
+    //            nameEn.current.style.display = "none";
+    //            nameUz.current.style.display = "none";
+    //            nameRu.current.style.display = "block";
+
+    //        }
+    //    }
 
     // modal
     const openModal = () => {
@@ -35,8 +68,6 @@ export default function Categories() {
     const closeModal = () => {
         setIsOpen(false);
     };
-
-
 
     return(
         <section className="bg-sky-950 w-[85%] h-[150vh] relative left-60">
@@ -68,24 +99,24 @@ export default function Categories() {
                                 <div className="w-64">
                                     <div className="flex">
                                     <h1 className="font-bold text-center mb-2 text-lg">Create product</h1> 
+                                    {/* <select defaultValue={lang} ref={chaneLanguage} onChange={(evt) => changeLang(evt.target.value)} className="border-lg border-2 border-black rounded-lg relative left-72 bottom-2 ">
+                                        <option value="uz">uz</option>
+                                        <option value="ru">ru</option>
+                                        <option value="en">en</option>
+                                    </select> */}
                                     <button className="border-solid border-black border-2 px-1 rounded-lg ml-[100px] mb-4 " onClick={() => closeModal()} >X</button>
                                     </div>
-                                    <div className="">
-                                        <label htmlFor="name">Product name</label>
-                                        <input className="w-64 text-black bg-white p-2 border-solid border-2 border-slate-900" type="text" />
-                                    </div>
+                                    {/* <div className="">
+                                        <label htmlFor="name">Product name ({lang}) </label>
+                                        <input required ref={nameUz} className="w-64 text-black bg-white p-2 border-solid border-2 border-slate-900" type="text" placeholder="name uz"/> <br />
+                                        <input required ref={nameRu} className="w-64 text-black bg-white p-2 border-solid border-2 border-slate-900 hidden" type="text" placeholder="name ru" /> <br />
+                                        <input required  ref={nameEn} className=" w-64 text-black bg-white p-2 border-solid border-2 border-slate-900 hidden" type="text" placeholder="name en" />
+                                    </div> */}
                                     <div className="">
                                         <label htmlFor="name">Product weight</label>
                                         <input className="w-64 text-black bg-white p-2 border-solid border-2 border-slate-900" type="text" />
                                     </div>
-                                    <div className="">
-                                        <label htmlFor="name">Product price</label>
-                                        <input className="w-64 text-black bg-white p-2 border-solid border-2 border-slate-900" type="text" />
-                                    </div>
-                                    <div className="">
-                                        <label htmlFor="name">Product discount</label>
-                                        <input className="w-64 text-black bg-white p-2 border-solid border-2 border-slate-900" type="text" />
-                                    </div>
+                        
                                     <button className="w-[100%] mt-5 p-2 bg-blue-400 text-white rounded-lg ">Add product</button>
                                 </div>
                             </Modal>
@@ -95,22 +126,18 @@ export default function Categories() {
                         <thead className="">
                             <tr className="">
                                 <td className="text-white font-bold">Name</td>
-                                <td className="text-white font-bold relative right-16">Weight</td>
-                                <td className="text-white font-bold relative left-8">Price</td>
-                                <td className="text-white font-bold relative left-8">Disocunt</td>
+                                <td className="text-white font-bold relative right-16">Name slug</td>
                                 <td className="text-white font-bold relative left-8">Modify</td>
                             </tr>
                         </thead>
-                        <tbody className="w-[1200px] h-[500px]">
+                        <tbody className="w-[1200px] h-[200px]">
                             {
-                                ConstructionProducts?.map(item => {
+                                categories?.map(item => {
                                     return(
                                         <tr>
-                                            <td className="text-slate-300 mb-10 relative top-10">{item.name}</td>
-                                            <td className="text-slate-300 relative right-16 mb-10 top-10"><p>{item.massa}</p></td>
-                                            <td className="text-slate-300 relative left-8 mb-10 top-10">{item.price}</td>
-                                            <td className="text-slate-300 relative left-8 mb-10 top-10">{item.discount}</td>
-                                            <td className="text-slate-300 relative left-8 mb-10 top-10">
+                                            <td className="text-white text-[20px]  mb-5">{item.name_uz}</td>
+                                            <td className="text-white text-[20px]  relative right-16"><p>{item.name_slug_uz}</p></td>
+                                            <td className="text-white relative left-8 ">
                                                 <button><img className="mr-5" src={edit} width={20} alt="" /></button>
                                                 <button><img className="" src={delet} width={25} alt="" /></button>  
                                             </td>

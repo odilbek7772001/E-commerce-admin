@@ -1,18 +1,18 @@
-import {createContext, useEffect, useState} from "react"
+import {createContext, useEffect, useState} from "react";
 
 const Context = createContext()
 
-function Provider({children}){
+function Provider({children}) {
 
-    const [token, setToken]  = useState( JSON.parse(window.localStorage.getItem("token")) || null)
+    const [user, setUser]  = useState(JSON.parse(window.localStorage.getItem("user")) || null)
 
     useEffect(() => {
-        window.localStorage.setItem("token", JSON.stringify(token))
-    }, [token]);
+        window.localStorage.setItem("user", JSON.stringify(user))
+    }, [user]);
 
     return(
-        <Context.Provider value={{token, setToken}}>{children}</Context.Provider>
+        <Context.Provider value={{user, setUser}}>{children}</Context.Provider>
     )
 }
 
-export {Context, Provider}
+export {Context, Provider};

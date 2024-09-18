@@ -25,3 +25,8 @@ body {
 .active {
     background-color: rgba(0, 0, 255, 0.575);
 }
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}

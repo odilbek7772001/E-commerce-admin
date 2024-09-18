@@ -16,14 +16,14 @@ export default function Payments() {
     const [ products, setProducts ] = useState([])
 
 
-    fetch(`https://savdo5jiek.onrender.com/api/v1/product/get-products`, {
-        method:"GET",
-        headers: {
-            "Content-Type":"application/json"
-        }
-    })
-    .then(res => res.json())
-    .then(data => console.log(data))
+    // fetch(`https://savdo5jiek.onrender.com/api/v1/product/get-products`, {
+    //     method:"GET",
+    //     headers: {
+    //         "Content-Type":"application/json"
+    //     }
+    // })
+    // .then(res => res.json())
+    // .then(data => console.log(data))
 
 
 
