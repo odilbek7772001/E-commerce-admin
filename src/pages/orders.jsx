@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Modal from 'react-modal';
 import ConstructionProducts from "../database/data";
+// components
+import Header from "../components/Header";
 
 
 // images
@@ -22,34 +24,9 @@ export default function Orders() {
     };
 
     return(
-        <section className="bg-sky-950 w-[85%] relative left-60">
+        <section className="bg-sky-950 w-[85%] min-h-[1000px] relative left-56 ">
             <div className="container">
-                <header className="flex justify-between border-b-2 border-sky-700 pb-[13px]">
-                    <h1 className="text-white font-bold mt-4 ml-5 text-[20px] tracking-[2px]">Admin</h1>
-                    <div className="flex text-white mt-5 mr-5">
-                        <img className="mr-4" src={user} width={25} height={25} alt="" />
-                        <span className="font-bold">John Born</span>
-                    </div>
-                </header>
-                <h1 className="text-white font-bold mt-4 ml-5 text-[20px] tracking-[2px]">Analytics</h1>
-                <div className="flex justify-between mt-5">
-                    <div className="border-2 border-solid border-sky-800 p-5 text-white rounded-lg">
-                        <h2 className="font-bold">All orders</h2>
-                        <span className="">50.8K</span>
-                    </div>
-                    <div className="border-2 border-solid border-sky-800 p-5 text-white rounded-lg">
-                        <h2 className="font-bold">Sale orders</h2>
-                        <span className="">50.8K</span>
-                    </div>
-                    <div className="border-2 border-solid border-sky-800 p-5 text-white rounded-lg">
-                        <h2 className="font-bold">Stock orders</h2>
-                        <span className="">50.8K</span>
-                    </div>
-                    <div className="border-2 border-solid border-sky-800 p-5 text-white rounded-lg">
-                        <h2 className="font-bold">New orders</h2>
-                        <span className="">50.8K</span>
-                    </div>
-                </div>
+                <Header/>
                 <div className="border-2 mt-10 p-5 rounded-lg border-sky-800">
                     <div className="flex justify-between mt-5">
                         <h3 className="text-white font-bold text-[25px] tracking-[2px]">Orders</h3>

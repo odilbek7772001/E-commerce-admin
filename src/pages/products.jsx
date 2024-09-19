@@ -4,9 +4,9 @@ import axios from 'axios';
 import Modal from 'react-modal';
 // component
 import Analytics from "../components/Analytics";
+import Header from "../components/Header";
 
 // images
-import user from "../assets/images/account.svg";
 import edit from "../assets/images/edit.svg";
 import delet from "../assets/images/delete.svg";
 
@@ -50,18 +50,9 @@ export default function Products() {
             .catch(error => {
             setError(error);
             });
-        
-            const selectCategory = document.getElementById('select')
-    
-            categories.forEach(i => {            
-                const option = document.createElement('option');
-                option.setAttribute('value', i.id)
-                option.textContent = i.name_uz;
-                selectCategory.append(option);
-            })
+
         },[]);
     
-
 // ------------------------------------------------------------------------------------------------
 
     // data value with useRef
@@ -243,15 +234,9 @@ export default function Products() {
 
 
     return(
-        <section className="bg-sky-950 w-[85%]  relative left-60">
+        <section className="bg-sky-950 w-[85%]  relative left-56">
             <div className="container">
-                <header className="flex justify-between border-b-2 border-sky-700 pb-[13px]">
-                    <h1 className="text-white font-bold mt-4 ml-5 text-[20px] tracking-[2px]">Admin</h1>
-                    <div className="flex text-white mt-5 mr-5">
-                        <img className="mr-4" src={user} width={25} height={25} alt="" />
-                        <Link to={'/admin'}><span className="font-bold">John Born</span></Link>
-                    </div>
-                </header>
+               <Header/> 
                <Analytics/>
                 <div className="border-2 mt-10 p-5 rounded-lg border-sky-800 min-h-[700px]">
                     <div className="flex justify-between mt-5">
@@ -309,8 +294,14 @@ export default function Products() {
                                    <div className="">
                                         <label htmlFor="name">Categories</label>
 
-                                        <select required id="select"  ref={categoryId} className="w-64 text-black bg-white p-2 border-solid border-2 border-slate-900">
-                                            <option selected>Categoriya tanlang</option>
+                                        <select required  ref={categoryId} className="w-64 text-black bg-white p-2 border-solid border-2 border-slate-900">
+                                            {
+                                                categories?.map(item => {
+                                                    return(
+                                                        <option className="text-black" value={item.id}>{item.name_uz}</option>
+                                                    )
+                                                })
+                                            }
                                         </select>
 
                                     </div>
@@ -382,8 +373,14 @@ export default function Products() {
                                    <div className="">
                                         <label htmlFor="name">Categories</label>
 
-                                        <select id="select"  ref={categoryId} className="w-64 text-black bg-white p-2 border-solid border-2 border-slate-900">
-                                            <option selected>Categoriya tanlang</option>
+                                     <select required  ref={categoryId} className="w-64 text-black bg-white p-2 border-solid border-2 border-slate-900">
+                                            {
+                                                categories?.map(item => {
+                                                    return(
+                                                        <option className="text-black" value={item.id}>{item.name_uz}</option>
+                                                    )
+                                                })
+                                            }
                                         </select>
 
                                     </div>

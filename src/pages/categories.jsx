@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import Modal from 'react-modal';
 import axios from 'axios';
 
+// components
+import Header from "../components/Header";
+
 
 
 // images
@@ -14,8 +17,10 @@ import delet from "../assets/images/delete.svg";
 export default function Categories() {
 
     const [modalIsOpen, setIsOpen] = useState(false);
+    const [EditmodalIsOpen, setEditIsOpen] = useState(false);
     const [ categories, setCategories ] = useState([])
     const [ lang , seTlang ] = useState([]);
+    const [ editId , setEditId ] = useState()
 
 
 
@@ -33,35 +38,95 @@ export default function Categories() {
     },[""]);
 
 
-    // 
+    // data value with useRef
+    const nameUz = useRef()
+    const nameRu = useRef()
+    const nameEn = useRef()
+    
+    
+    // post products
+    const addCategory = async () => {        
+
+        const data = new FormData();
+        data.append('name_uz', nameUz.current.value );
+        data.append('name_ru', nameRu.current.value );
+        data.append('name_en', nameEn.current.value );
+
+        try {
+            await  axios.post(`https://5jiek.uz/api/v1/categorie/create-categorie`, data, {
+                headers : {
+                    "Content-Type": "application/json",
+                },
+                withCredentials: true 
+            })
+        } catch (error) {
+         setError(error)
+        }
+    console.log('add category');
+    closeModal()
+    }
+
+    const updateCategory = async (id) => {        
+    
+        const data = new FormData();
+        data.append('name_uz', nameUz.current.value );
+        data.append('name_ru', nameRu.current.value );
+        data.append('name_en', nameEn.current.value );
+
+        try {
+            await  axios.put(`https://5jiek.uz/api/v1/categorie/update-categorie/${id}`, data, {
+                headers : {
+                    "Content-Type": "application/json",
+                },
+                withCredentials: true 
+            })
+        } catch (error) {
+         setError(error)
+        }
+    console.log('update category');
+    }
+
+    // DELETE
+    const deleteCategory = async (id) => {
+        console.log(id);
+        
+        try {
+            await axios.delete(`https://5jiek.uz/api/v1/categorie/delete-categorie/${id}`,{
+                withCredentials : true
+            });
+            setCategories(categories.filter(category => category.id !== id));
+        } catch (err) {
+            setError(err.message);
+        }
+        console.log('DELETE')
+
+    } 
 
        // changeLang
        const chaneLanguage = useRef();
 
-    //    const changeLang = (evt) => {
-    //        seTlang(evt)
+        const changeLang = (evt) => {
+           seTlang(evt)
    
-    //        if(evt == "uz") {
-    //            nameRu.current.style.display = "none";
-    //            nameEn.current.style.display = "none";
-    //            nameUz.current.style.display = "block";
+           if(evt == "uz") {
+               nameRu.current.style.display = "none";
+               nameEn.current.style.display = "none";
+               nameUz.current.style.display = "block";
+           }
+            if(evt == "en") {
+               nameRu.current.style.display = "none";
+               nameUz.current.style.display = "none";
+               nameEn.current.style.display = "block";
+           } 
+           if(evt == "ru") {
+               nameEn.current.style.display = "none";
+               nameUz.current.style.display = "none";
+               nameRu.current.style.display = "block";
 
-   
-    //        } else if(evt == "en") {
-    //            nameRu.current.style.display = "none";
-    //            nameUz.current.style.display = "none";
-    //            nameEn.current.style.display = "block";
+           }
+       }
 
-   
-    //        } else if(evt == "ru") {
-    //            nameEn.current.style.display = "none";
-    //            nameUz.current.style.display = "none";
-    //            nameRu.current.style.display = "block";
-
-    //        }
-    //    }
-
-    // modal
+    // modal post
     const openModal = () => {
         setIsOpen(true);
     };
@@ -69,17 +134,18 @@ export default function Categories() {
         setIsOpen(false);
     };
 
+    // madal edit
+    const EditopenModal = () => {
+        setEditIsOpen(true)
+    }
+    const EditcloseModal = () => {
+        setEditIsOpen(false)
+    }
+
     return(
-        <section className="bg-sky-950 w-[85%] h-[150vh] relative left-60">
+        <section className="bg-sky-950 w-[85%] h-[150vh] relative left-56">
             <div className="container">
-                <header className="flex justify-between border-b-2 border-sky-700 pb-[13px]">
-                    <h1 className="text-white font-bold mt-4 ml-5 text-[20px] tracking-[2px]">Admin</h1>
-                    <div className="flex text-white mt-5 mr-5">
-                        <img className="mr-4" src={user} width={25} height={25} alt="" />
-                        <Link to={'/admin'}><span className="font-bold">John Born</span></Link>
-                    </div>
-                </header>
-               
+                <Header/>
                 <div className="border-2 mt-10 p-5 rounded-lg border-sky-800">
                     <div className="flex justify-between mt-5">
                         <h3 className="text-white font-bold text-[25px] tracking-[2px]">Categories</h3>
@@ -90,37 +156,59 @@ export default function Categories() {
                             </div>
                             <button onClick={openModal} className="bg-sky-900 text-white p-2 font-mono  rounded-lg">Create product</button>
                        </div>
-                       {/* modal */}
+                       {/* modal post */}
                        <Modal
                                 isOpen={modalIsOpen} onRequestClose={closeModal} contentLabel="Example Modal"
                                 style={{
                                     content: { top: '50%', left: '50%', right: 'auto', bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)', },
                                 }}>
                                 <div className="w-64">
-                                    <div className="flex">
-                                    <h1 className="font-bold text-center mb-2 text-lg">Create product</h1> 
-                                    {/* <select defaultValue={lang} ref={chaneLanguage} onChange={(evt) => changeLang(evt.target.value)} className="border-lg border-2 border-black rounded-lg relative left-72 bottom-2 ">
+                                    <div className="flex ">
+                                    <h1 className="font-bold mb-2 text-[18px] ">Create category</h1> 
+                                    <select defaultValue={lang} ref={chaneLanguage} onChange={(evt) => changeLang(evt.target.value)} className="border-lg border-2 border-black rounded-lg h-10 absolute bottom-55 left-44  ">
                                         <option value="uz">uz</option>
                                         <option value="ru">ru</option>
                                         <option value="en">en</option>
-                                    </select> */}
+                                    </select>
                                     <button className="border-solid border-black border-2 px-1 rounded-lg ml-[100px] mb-4 " onClick={() => closeModal()} >X</button>
                                     </div>
-                                    {/* <div className="">
-                                        <label htmlFor="name">Product name ({lang}) </label>
+                                    <div className="">
+                                        <label>Category name ({lang}) </label>
                                         <input required ref={nameUz} className="w-64 text-black bg-white p-2 border-solid border-2 border-slate-900" type="text" placeholder="name uz"/> <br />
                                         <input required ref={nameRu} className="w-64 text-black bg-white p-2 border-solid border-2 border-slate-900 hidden" type="text" placeholder="name ru" /> <br />
                                         <input required  ref={nameEn} className=" w-64 text-black bg-white p-2 border-solid border-2 border-slate-900 hidden" type="text" placeholder="name en" />
-                                    </div> */}
-                                    <div className="">
-                                        <label htmlFor="name">Product weight</label>
-                                        <input className="w-64 text-black bg-white p-2 border-solid border-2 border-slate-900" type="text" />
                                     </div>
-                        
-                                    <button className="w-[100%] mt-5 p-2 bg-blue-400 text-white rounded-lg ">Add product</button>
+                                    <button onClick={addCategory} className="w-[100%] mt-5 p-2 bg-blue-400 text-white rounded-lg ">Add category</button>
                                 </div>
                             </Modal>
-                       {/* modal */}
+                       {/* modal update*/}
+
+                        {/* modal update */}
+                       <Modal
+                                isOpen={EditmodalIsOpen} onRequestClose={closeModal} contentLabel="Example Modal"
+                                style={{
+                                    content: { top: '50%', left: '50%', right: 'auto', bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)', },
+                                }}>
+                                <div className="w-64">
+                                    <div className="flex ">
+                                    <h1 className="font-bold mb-2 text-[18px] ">Edit category</h1> 
+                                    <select defaultValue={lang} ref={chaneLanguage} onChange={(evt) => changeLang(evt.target.value)} className="border-lg border-2 border-black rounded-lg h-10 absolute bottom-55 left-44  ">
+                                        <option value="uz">uz</option>
+                                        <option value="ru">ru</option>
+                                        <option value="en">en</option>
+                                    </select>
+                                    <button className="border-solid border-black border-2 px-1 rounded-lg ml-[100px] mb-4 " onClick={() => EditcloseModal()} >X</button>
+                                    </div>
+                                    <div className="">
+                                        <label>Category name ({lang}) </label>
+                                        <input required ref={nameUz} className="w-64 text-black bg-white p-2 border-solid border-2 border-slate-900" type="text" placeholder="name uz"/> <br />
+                                        <input required ref={nameRu} className="w-64 text-black bg-white p-2 border-solid border-2 border-slate-900 hidden" type="text" placeholder="name ru" /> <br />
+                                        <input required  ref={nameEn} className=" w-64 text-black bg-white p-2 border-solid border-2 border-slate-900 hidden" type="text" placeholder="name en" />
+                                    </div>
+                                    <button onClick={updateCategory(`${editId}`)} className="w-[100%] mt-5 p-2 bg-blue-400 text-white rounded-lg ">Edit category</button>
+                                </div>
+                        </Modal>
+                        {/* modal update */}
                     </div>
                     <table className="mt-10 w-[1200px]">
                         <thead className="">
@@ -138,8 +226,11 @@ export default function Categories() {
                                             <td className="text-white text-[20px]  mb-5">{item.name_uz}</td>
                                             <td className="text-white text-[20px]  relative right-16"><p>{item.name_slug_uz}</p></td>
                                             <td className="text-white relative left-8 ">
-                                                <button><img className="mr-5" src={edit} width={20} alt="" /></button>
-                                                <button><img className="" src={delet} width={25} alt="" /></button>  
+                                                <button onClick={() => {
+                                                    EditopenModal()
+                                                    setEditId(`${item.id}`)
+                                                } }><img className="mr-5" src={edit} width={20} alt="" /></button>
+                                                <button onClick={() => deleteCategory(`${item.id}`)}><img className="" src={delet} width={25} alt="" /></button>  
                                             </td>
                                         </tr>
                                     )

@@ -30,7 +30,6 @@ export default function Login() {
         .then(data => setUser(data.user))
     }
 
-
     return(
         <>
             <div className="border-2 border-solid border-black w-96 mt-28 mx-auto mb-60 rounded-lg p-5 bg-slate-800 text-white" >

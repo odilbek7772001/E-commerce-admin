@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 
 // pages
 import List from '../components/List';
+import Analitica from "./analitica";
 import Admin from "./admin";
 import Products from './products';
 import Orders from './orders';
@@ -16,9 +17,9 @@ function AuthorizedApp(){
     <section className="flex">
       <List/>
       <Routes>
-          <Route path="/" element={<Products/>} />
+          <Route path="/" element={<Analitica/>} />
+          <Route path="/products" element={<Products/>} />
           <Route path="/admin" element={<Admin/>} />
-          {/* <Route path="/products" element={<Products/>} /> */}
           <Route path="/orders" element={<Orders/>} />
           <Route path="/contacts" element={<Contacts/>} />
           <Route path="/categories" element={<Categories/>} />

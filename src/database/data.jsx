@@ -43,38 +43,7 @@ const ConstructionProducts = [
         price:"350000 UZS",
         discount:"255000 UZS"
     },
-    {
-        id:5,
-        image:img5,
-        name:"Izmelchonka",
-        massa:"1 tonna",
-        price:"1200000 UZS",
-        discount:"1000000 UZS"
-    },
-    {
-        id:6,
-        image:img6,
-        name:"Keramzit",
-        massa:"1 tonna",
-        price:"320000 UZS",
-        discount:"245000 UZS"
-    },
-    {
-        id:7,
-        image:img7,
-        name:"Gipsablok",
-        massa:"1 dona",
-        price:"8500 UZS",
-        discount:"5000 UZS"
-    },
-    {
-        id:8,
-        image:img8,
-        name:"Fasad g'isht qizil",
-        massa:"1 dona",
-        price:"5000 UZS",
-        discount:"3000 UZS"
-    },
+    
 ]
 
 

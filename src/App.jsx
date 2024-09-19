@@ -11,7 +11,7 @@ function App() {
 
   const [ user ] = useAuth();
     
-  if(user) {
+  if(true) {
     return  <AuthorizedApp/>
   }else {
     return  <UnAuthorizedApp/>

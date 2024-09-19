@@ -1,118 +1,74 @@
 import { useState , useEffect} from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
-import Modal from 'react-modal';
+// components
+import Header from "../components/Header";
+// data
 import ConstructionProducts from "../database/data";
-
-
 // images
-import user from "../assets/images/account.svg";
-import edit from "../assets/images/edit.svg";
 import delet from "../assets/images/delete.svg";
 
 
 export default function Contacts() {
 
-    const [modalIsOpen, setIsOpen] = useState(false);
-    const [ products, setProducts ] = useState([])
+    const [ contacts, setContacts ] = useState([])
 
+    // get contacts
+     useEffect(() => {
+        axios.get('https://5jiek.uz/api/v1/contacts/get-contact-notification' , {
+            withCredentials: true
+        })
+        .then(response => {
+            setContacts(response.data.contactUs); 
+            })
+        .catch(error => {
+            setError(error);
+        });
+    },[""]);    
 
-    // fetch(`https://savdo5jiek.onrender.com/api/v1/product/get-products`, {
-    //     method:"GET",
-    //     headers: {
-    //         "Content-Type":"application/json"
-    //     }
-    // })
-    // .then(res => res.json())
-    // .then(data => console.log(data))
-
-
-
-
-    // modal
-    const openModal = () => {
-        setIsOpen(true);
-    };
-    const closeModal = () => {
-        setIsOpen(false);
-    };
-
-
+    // DELETE
+     const deleteContact = async (id) => {
+        
+        try {
+            await axios.delete(`https://5jiek.uz/api/v1/contacts/delete-contact-by-admin/${id}`,{
+                withCredentials : true
+            });
+            setContacts(contacts.filter(contact => contact.id !== id));
+        } catch (err) {
+            setError(err.message);
+        }
+        console.log('DELETE')
+    } 
 
     return(
-        <section className="bg-sky-950 w-[85%] h-[150vh] relative left-60">
+        <section className="bg-sky-950 w-[85%] h-[150vh] relative left-56">
             <div className="container">
-                <header className="flex justify-between border-b-2 border-sky-700 pb-[13px]">
-                    <h1 className="text-white font-bold mt-4 ml-5 text-[20px] tracking-[2px]">Admin</h1>
-                    <div className="flex text-white mt-5 mr-5">
-                        <img className="mr-4" src={user} width={25} height={25} alt="" />
-                        <Link to={'/admin'}><span className="font-bold">John Born</span></Link>
-                    </div>
-                </header>
-               
-                <div className="border-2 mt-10 p-5 rounded-lg border-sky-800">
+                <Header/>
+                <div className="border-2 mt-10 p-5 rounded-lg border-sky-800 min-h-[500px]">
                     <div className="flex justify-between mt-5">
                         <h3 className="text-white font-bold text-[25px] tracking-[2px]">Contacts</h3>
-                       <div className="flex">
-                            <div className="mr-4 ">
-                                <img src="" alt="" />
-                                <input className="text-white rounded-lg bg-transparent border-2 border-solid border-sky-900 p-2" type="text" placeholder="search..." />
-                            </div>
-                            <button onClick={openModal} className="bg-sky-900 text-white p-2 font-mono  rounded-lg">Create product</button>
-                       </div>
-                       {/* modal */}
-                       <Modal
-                                isOpen={modalIsOpen} onRequestClose={closeModal} contentLabel="Example Modal"
-                                style={{
-                                    content: { top: '50%', left: '50%', right: 'auto', bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)', },
-                                }}>
-                                <div className="w-64">
-                                    <div className="flex">
-                                    <h1 className="font-bold text-center mb-2 text-lg">Create product</h1> 
-                                    <button className="border-solid border-black border-2 px-1 rounded-lg ml-[100px] mb-4 " onClick={() => closeModal()} >X</button>
-                                    </div>
-                                    <div className="">
-                                        <label htmlFor="name">Product name</label>
-                                        <input className="w-64 text-black bg-white p-2 border-solid border-2 border-slate-900" type="text" />
-                                    </div>
-                                    <div className="">
-                                        <label htmlFor="name">Product weight</label>
-                                        <input className="w-64 text-black bg-white p-2 border-solid border-2 border-slate-900" type="text" />
-                                    </div>
-                                    <div className="">
-                                        <label htmlFor="name">Product price</label>
-                                        <input className="w-64 text-black bg-white p-2 border-solid border-2 border-slate-900" type="text" />
-                                    </div>
-                                    <div className="">
-                                        <label htmlFor="name">Product discount</label>
-                                        <input className="w-64 text-black bg-white p-2 border-solid border-2 border-slate-900" type="text" />
-                                    </div>
-                                    <button className="w-[100%] mt-5 p-2 bg-blue-400 text-white rounded-lg ">Add product</button>
-                                </div>
-                            </Modal>
-                       {/* modal */}
                     </div>
-                    <table className="mt-10 w-[1200px]">
+                    <table className="mt-10 w-[1200px] min-h-[300px]">
                         <thead className="">
                             <tr className="">
                                 <td className="text-white font-bold">Name</td>
-                                <td className="text-white font-bold relative right-16">Weight</td>
-                                <td className="text-white font-bold relative left-8">Price</td>
-                                <td className="text-white font-bold relative left-8">Disocunt</td>
-                                <td className="text-white font-bold relative left-8">Delete</td>
+                                <td className="text-white font-bold relative left-4">Email</td>
+                                <td className="text-white font-bold relative right-20">Message</td>
+                                <td className="text-white font-bold relative left-8">Phone</td>
+                                <td className="text-white font-bold relative left-8">Modify</td>
                             </tr>
                         </thead>
-                        <tbody className="w-[1200px] h-[500px]">
+                        <tbody className="w-[1200px] min-h-[250px]">
                             {
-                                ConstructionProducts?.map(item => {
+                                contacts?.map(item => {
                                     return(
-                                        <tr>
-                                            <td className="text-slate-300 mb-10 relative top-10">{item.name}</td>
-                                            <td className="text-slate-300 relative right-16 mb-10 top-10"><p>{item.massa}</p></td>
-                                            <td className="text-slate-300 relative left-8 mb-10 top-10">{item.price}</td>
-                                            <td className="text-slate-300 relative left-8 mb-10 top-10">{item.discount}</td>
+                                        <tr className="">
+                                            <td className="text-slate-300 mb-20 relative top-10">{item.name}</td>
+                                            <td className="text-slate-300 relative left-4 mb-10 top-10"><p>{item.email}</p></td>
+                                            <td className="text-slate-300 relative right-20 mb-10 top-10 w-72 ">{item.message}</td>
+                                            <td className="text-slate-300 relative left-8 mb-10 top-10">{item.phone}</td>
                                             <td className="text-slate-300 relative left-8 mb-10 top-10">
-                                                {/* <button><img className="mr-5" src={edit} width={20} alt="" /></button> */}
-                                                <button><img className="ml-5" src={delet} width={25} alt="" /></button>  
+                                                <button onClick={() => deleteContact(`${item.id}`)}><img className="ml-5" src={delet} width={25} alt="" /></button>  
                                             </td>
                                         </tr>
                                     )

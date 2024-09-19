@@ -1,11 +1,9 @@
 import { useState , useEffect} from "react";
-import { Link } from "react-router-dom";
 import Modal from 'react-modal';
 import ConstructionProducts from "../database/data";
-
-
+// components
+import Header from "../components/Header";
 // images
-import user from "../assets/images/account.svg";
 import edit from "../assets/images/edit.svg";
 import delet from "../assets/images/delete.svg";
 
@@ -13,7 +11,7 @@ import delet from "../assets/images/delete.svg";
 export default function Payments() {
 
     const [modalIsOpen, setIsOpen] = useState(false);
-    const [ products, setProducts ] = useState([])
+    const [ payments, setPayments ] = useState([])
 
 
     // fetch(`https://savdo5jiek.onrender.com/api/v1/product/get-products`, {
@@ -24,8 +22,6 @@ export default function Payments() {
     // })
     // .then(res => res.json())
     // .then(data => console.log(data))
-
-
 
 
     // modal
@@ -41,14 +37,7 @@ export default function Payments() {
     return(
         <section className="bg-sky-950 w-[85%] h-[150vh] relative left-60">
             <div className="container">
-                <header className="flex justify-between border-b-2 border-sky-700 pb-[13px]">
-                    <h1 className="text-white font-bold mt-4 ml-5 text-[20px] tracking-[2px]">Admin</h1>
-                    <div className="flex text-white mt-5 mr-5">
-                        <img className="mr-4" src={user} width={25} height={25} alt="" />
-                        <Link to={'/admin'}><span className="font-bold">John Born</span></Link>
-                    </div>
-                </header>
-               
+                <Header/>
                 <div className="border-2 mt-10 p-5 rounded-lg border-sky-800">
                     <div className="flex justify-between mt-5">
                         <h3 className="text-white font-bold text-[25px] tracking-[2px]">Payments</h3>
