@@ -1,10 +1,7 @@
 import { useState , useEffect} from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 // components
 import Header from "../components/Header";
-// data
-import ConstructionProducts from "../database/data";
 // images
 import delet from "../assets/images/delete.svg";
 
@@ -15,7 +12,7 @@ export default function Contacts() {
 
     // get contacts
      useEffect(() => {
-        axios.get('https://5jiek.uz/api/v1/contacts/get-contact-notification' , {
+        axios.get('https://5jiek.uz/api/v1/contacts/get-contact-list-by-admin' , {
             withCredentials: true
         })
         .then(response => {

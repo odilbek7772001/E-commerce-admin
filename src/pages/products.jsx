@@ -1,4 +1,5 @@
 import { useState , useRef, useEffect} from "react";
+import { Pagination } from "@mui/material";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import Modal from 'react-modal';
@@ -22,21 +23,26 @@ export default function Products() {
     const [ lang , seTlang ] = useState([]);
     const [ productId , setProductId] = useState([])
 
+    
+    
+    
+    
+    // get products
+    useEffect(() => {
+        axios.get('https://5jiek.uz/api/v1/product/get-products' , {
+            withCredentials: true
+        })
+        .then(response => {
+            setProducts(response.data.data); 
+        })
+        .catch(error => {
+            setError(error);
+        });
+    },[""]);
 
-
-      // get products
-        useEffect(() => {
-            axios.get('https://5jiek.uz/api/v1/product/get-products' , {
-                withCredentials: true
-            })
-            .then(response => {
-                setProducts(response.data.data); 
-                })
-            .catch(error => {
-                setError(error);
-            });
-        },[""]);
-
+    const changePagination = () => {
+        console.log('ok');
+    }
 
     // get categories
 
@@ -237,7 +243,7 @@ export default function Products() {
         <section className="bg-sky-950 w-[85%]  relative left-56">
             <div className="container">
                <Header/> 
-               <Analytics/>
+               {/* <Analytics/> */}
                 <div className="border-2 mt-10 p-5 rounded-lg border-sky-800 min-h-[700px]">
                     <div className="flex justify-between mt-5">
                         <h3 className="text-white font-bold text-[25px] tracking-[2px]">Products</h3>
@@ -418,11 +424,11 @@ export default function Products() {
                                 <td className="text-white font-bold relative left-24">Modify</td>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody className="border-b-2 border-b-sky-900">
                             {
                                 products?.map(item => {
                                     return(
-                                        <tr>
+                                        <tr className="">
                                             <td className=""><img className="mt-4 rounded-lg" src={item.image[0]} width={100} height={80} alt="image"/></td>
                                             <td className="text-slate-300 relative right-24">{item.name_uz}</td>
                                             <td className="text-slate-300 w-60 relative right-10">{item.description_uz}</td>
@@ -445,6 +451,7 @@ export default function Products() {
                             }
                         </tbody>
                     </table>
+                    <Pagination onClick={changePagination} className="mt-5 ml-[800px]" count={10} variant="outlined" color="primary" />
                 </div>
             </div>
         </section>

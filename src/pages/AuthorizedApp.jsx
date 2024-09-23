@@ -10,6 +10,7 @@ import Contacts from "./contacts";
 import Categories from "./categories";
 import Payments from "./payments";
 import Contracts from "./contracts";
+import Messages from "./messages";
 
 
 function AuthorizedApp(){
@@ -25,6 +26,7 @@ function AuthorizedApp(){
           <Route path="/categories" element={<Categories/>} />
           <Route path="/payments" element={<Payments/>} />
           <Route path="/contracts" element={<Contracts/>} />
+          <Route path="/messages" element={<Messages/>} />
       </Routes>
   </section>  
   )

@@ -28,7 +28,6 @@ export default function Contracts() {
 
 
 
-
     // modal
     const openModal = () => {
         setIsOpen(true);

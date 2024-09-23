@@ -7,7 +7,9 @@ export default function List() {
     return(
         <div className="bg-sky-900 w-[20%] h-[100vh] fixed">
             <div className="py-5 pl-10 border-b-2 border-solid border-sky-600">
-                <img className="rounded-lg " src={logo} width={150}  alt="logo"/>
+                <Link to={'/'}>
+                    <img className="rounded-lg" src={logo} width={150}  alt="logo"/>
+                </Link>
             </div>
             <ul className="pt-10 pl-10 ">
                 <NavLink to={'/'} className=" block text-white mb-4 text-[20px] tracking-[2px] p-2 rounded-lg"><a href="#">Analytic</a></NavLink>

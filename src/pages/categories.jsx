@@ -1,15 +1,9 @@
 import { useState , useEffect, useRef} from "react";
-import { Link } from "react-router-dom";
 import Modal from 'react-modal';
 import axios from 'axios';
-
 // components
 import Header from "../components/Header";
-
-
-
 // images
-import user from "../assets/images/account.svg";
 import edit from "../assets/images/edit.svg";
 import delet from "../assets/images/delete.svg";
 
@@ -21,7 +15,6 @@ export default function Categories() {
     const [ categories, setCategories ] = useState([])
     const [ lang , seTlang ] = useState([]);
     const [ editId , setEditId ] = useState()
-
 
 
    // get products
